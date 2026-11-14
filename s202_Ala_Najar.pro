@@ -1,0 +1,39 @@
+QT       += core gui widgets
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG += c++17
+
+# You can make your code fail to compile if it uses deprecated APIs.
+# In order to do so, uncomment the following line.
+#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+
+SOURCES += \
+    cartewidget.cpp \
+    graphe.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    ville.cpp
+
+HEADERS += \
+    cartewidget.h \
+    graphe.h \
+    mainwindow.h \
+    ville.h
+
+FORMS += \
+    mainwindow.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+RESOURCES +=
+
+copycsv.commands = cp $$PWD/villes.csv $$OUT_PWD/villes.csv && \
+                   cp $$PWD/temps.csv $$OUT_PWD/temps.csv
+first.depends = $(first) copycsv
+export(first.depends)
+export(copycsv.commands)
+QMAKE_EXTRA_TARGETS += first copycsv
